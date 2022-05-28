@@ -3,7 +3,7 @@
 Game of life simple implementation
 ## Prepare for try it ot
 
-Add this line to your application's Gemfile:
+Install dependencies
 
     $ bundle install
 
