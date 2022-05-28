@@ -1,43 +1,77 @@
-# GameOfLife
+# Game Of Life
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/game_of_life`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
+Game of life simple implementation
+## Prepare for try it ot
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'game_of_life'
-```
-
-And then execute:
-
     $ bundle install
 
-Or install it yourself as:
+Run tests
 
-    $ gem install game_of_life
+    $ bundle exec rspec
 
-## Usage
+## Example
 
-TODO: Write usage instructions here
+Run the example to visualize the game of life in your terminal
 
-## Development
+    $ ruby example/example.rb
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Runner
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Modeled in a `runner` based way so you can extend to other kind of runners:
+
+```Ruby
+require 'game-oflife'
+
+class OpenGLRunner < GameOfLife::BaseRunner
+  protected
+
+  def before_running
+    # Preprare OpenGL
+  end
+
+  def process_board_buffer
+    buffer = @board.as_buffer
+
+    # open_gl_engne.render_boolean_buffer(buffer) ???
+  end
+
+  def get_runner_width
+    # open_gl_engne.window_width ???
+  end
+
+  def get_runner_height
+    # open_gl_engne.window_height ???
+  end
+end
+
+runner = OpenGLRunner.new(speed: 10)
+runner.board.set_random
+
+runner.run
+```
+
+### Or just get the board state
+
+```Ruby
+require 'game-oflife'
+
+board = GameOfLife::Board.new(width: 100, height: 100)
+board.set_random
+
+board.next_tick
+
+current_state = board.as_buffer
+
+# Print or do what ever with the current state
+# > [true, false, true, false, false...] 
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/game_of_life. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/game_of_life/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/omarandstuff/game_of_life. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to be kind.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the GameOfLife project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/game_of_life/blob/master/CODE_OF_CONDUCT.md).
+The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
