@@ -2,7 +2,7 @@
 
 Game of life simple implementation
 
-## Try it out
+## Getting started
 
 Install dependencies
 
