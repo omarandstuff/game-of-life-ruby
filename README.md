@@ -1,7 +1,8 @@
 # Game Of Life
 
 Game of life simple implementation
-## Prepare for try it ot
+
+## Try it out
 
 Install dependencies
 
